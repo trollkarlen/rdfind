@@ -93,8 +93,8 @@ Fileinfo::fillwithbytes(enum readtobuffermode filltype,
     // store the result of the checksum calculation in somebytes
     int digestlength = chk.getDigestLength();
     if (digestlength <= 0 ||
-        digestlength >= static_cast<int>(m_somebytes.size())) {
-      std::cerr << "wrong answer from getDigestLength! FIXME" << std::endl;
+        digestlength > static_cast<int>(m_somebytes.size())) {
+      std::cerr << "wrong answer from getDigestLength(" << digestlength << ")! FIXME" << std::endl;
     }
     if (chk.printToBuffer(m_somebytes.data(), m_somebytes.size())) {
       std::cerr << "failed writing digest to buffer!!" << std::endl;
