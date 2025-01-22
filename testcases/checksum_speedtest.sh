@@ -6,6 +6,12 @@
 set -e
 . "$(dirname "$0")/common_funcs.sh"
 
+if [ "$WITH_XXHASH" = "1" ]; then
+    allchecksumtypes="md5 sha1 sha256 sha512 xxh128"
+else
+    allchecksumtypes="md5 sha1 sha256 sha512"
+fi
+
 reset_teststate
 
 
@@ -21,7 +27,7 @@ if [ ! -e speedtest/largefile1 ] ; then
 fi
 
 
-for checksumtype in md5 sha1 sha256; do
+for checksumtype in $allchecksumtypes; do
    dbgecho "trying checksum $checksumtype"
    time $rdfind  -removeidentinode false -checksum $checksumtype speedtest/largefile1 speedtest/largefile2 > rdfind.out
 done
